@@ -32,9 +32,9 @@ public class MyTortoiseBolt implements IRichBolt {
         Runner filter = manager.filter(n);
 
         //System.out.println( n  + " is treated!");
-        collector.emit(t,new Values(filter.getId(), t.getLong("top"), t.getString("nom"),
-                                    filter.getInt("position"), filter.getInt("nbDevant"), filter.getInt("nbDerriere"),
-                                    filter.getInt("total")));
+        collector.emit(t,new Values(filter.getId(), filter.getTop(), filter.getNom(),
+                                    filter.getPosition(), filter.getNbDevant(), filter.getNbDerriere(),
+                                    filter.getTotal()));
 
         return;
 

@@ -8,12 +8,8 @@ import org.apache.storm.topology.base.BaseStatefulBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
-import stormTP.core.Runner;
 import stormTP.core.TortoiseManager;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import java.util.Map;
 
 
@@ -27,22 +23,13 @@ public class ComputeBonusBolt extends BaseStatefulBolt<KeyValueState<String, Int
     @Override
     public void execute(Tuple t) {
 
-        String n = t.getValueByField("json").toString();
         TortoiseManager manager = new TortoiseManager(4, "Flores-Dorliat");
-        Runner filter = manager.filter(n);
 
-        sum += manager.computePoints(filter.getRang(), filter.getTotal() );
+        sum += manager.computePoints(t.getStringByField("rang"), t.getIntegerByField("total") );
 
         kvState.put("sum", sum);
 
-        JsonObjectBuilder r = Json.createObjectBuilder();
-        r.add("id",filter.getId());
-        r.add("top", filter.getTop());
-        r.add("nom", filter.getNom());
-        r.add("score", 1);
-        JsonObject row = r.build();
-
-        collector.emit(t,new Values(row.toString()));
+        collector.emit(t,new Values(t.getLongByField("id"), t.getLongByField("top"), t.getStringByField("nom"),sum));
 
     }
 
@@ -60,7 +47,7 @@ public class ComputeBonusBolt extends BaseStatefulBolt<KeyValueState<String, Int
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("json"));
+        declarer.declare(new Fields("id", "top", "nom", "score"));
     }
 
 

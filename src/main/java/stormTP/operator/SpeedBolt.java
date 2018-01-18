@@ -6,7 +6,9 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseWindowedBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.windowing.TupleWindow;
+import stormTP.core.TortoiseManager;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -21,20 +23,15 @@ public class SpeedBolt extends BaseWindowedBolt {
 
     @Override
     public void execute(TupleWindow inputWindow) {
-/*
+
         int cpt = 0;
         ArrayList<Integer> tableau = new ArrayList<Integer>();
         TortoiseManager manager = new TortoiseManager(4, "Flores-Dorliat");
 
-        for(Tuple t: inputWindow.get()) {
-            if ( cpt%5 ==0 ){
-                tableau.add(cpt);
-            }
-            cpt++;
-        }
-
-        List<Tuple> t = inputWindow.get();
-        JsonObject row = Json.createObjectBuilder().build();
+        long id;
+        long top;
+     /*   for(Tuple t: inputWindow.get()) {
+            id = t.
 
         for(int i: tableau){
             if(tableau.contains(i+2)) {
@@ -43,25 +40,19 @@ public class SpeedBolt extends BaseWindowedBolt {
                 Runner filterInit = manager.filter(n);
                 Runner filterFin = manager.filter(n2);
 
-                Double speed = manager.computeSpeed(filterInit.getTop(), filterFin.getTop(), filterInit.getPosition(), filterFin.getPosition());
+                Double vitesse = manager.computeSpeed(filterInit.getTop(), filterFin.getTop(), filterInit.getPosition(), filterFin.getPosition());
 
-                JsonObjectBuilder r = Json.createObjectBuilder();
-                r.add("id", filterInit.getId());
-                r.add("top", filterInit.getTop() + "-" + filterFin.getTop());
-                r.add("nom", filterInit.getNom());
-                r.add("vitesse", speed);
-                row = r.build();
             }
         }
 
         //System.out.println( n  + " is treated!");
-        collector.emit(inputWindow.get(), new Values(row.toString()));*/
+        collector.emit(inputWindow.get(), new Values(id, top, nom, vitesse));*/
             return;
 
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("json"));
+        declarer.declare(new Fields("id", "top", "nom", "vitesse"));
     }
 }

@@ -6,6 +6,7 @@ import org.apache.storm.topology.TopologyBuilder;
 import stormTP.operator.Exit3Bolt;
 import stormTP.operator.GiveRankBolt;
 import stormTP.operator.MasterInputStreamSpout;
+import stormTP.operator.MyTortoiseBolt;
 
 public class TopologyT3 {
         public static void main(String[] args) throws Exception {
@@ -22,7 +23,8 @@ public class TopologyT3 {
         /*Affectation à la topologie du spout*/
             builder.setSpout("masterStream", spout);
         /*Affectation à la topologie du bolt qui ne fait rien, il prendra en input le spout localStream*/
-            builder.setBolt("giveRank", new GiveRankBolt(), nbExecutors).shuffleGrouping("masterStream");
+            builder.setBolt("myTortoise", new MyTortoiseBolt(), nbExecutors).shuffleGrouping("masterStream");
+            builder.setBolt("giveRank", new GiveRankBolt(), nbExecutors).shuffleGrouping("myTortoise");
         /*Affectation à la topologie du bolt qui émet le flux de sortie, il prendra en input le bolt nofilter*/
             builder.setBolt("exit", new Exit3Bolt(portOUTPUT, ipmOUTPUT), nbExecutors).shuffleGrouping("giveRank");
 

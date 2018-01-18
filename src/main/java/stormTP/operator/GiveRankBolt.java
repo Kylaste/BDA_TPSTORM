@@ -35,13 +35,13 @@ public class GiveRankBolt implements IRichBolt {
     public void execute(Tuple t) {
 
 
-        String n = t.getValueByField("json").toString();
-        TortoiseManager manager = new TortoiseManager(4, "Flores-Dorliat");
-        Runner filter = manager.filter(n);
-        Runner rank = manager.computeRank(filter.getId(), filter.getTop(), filter.getNom(), filter.getNbDevant(), filter.getNbDerriere(), filter.getTotal());
 
-        System.out.println( n  + " is treated!");
-        collector.emit(t,new Values(rank.getJSON_V2()));
+        TortoiseManager manager = new TortoiseManager(4, "Flores-Dorliat");
+        Runner rank = manager.computeRank(t.getLongByField("id"), t.getLongByField("top"),
+                t.getStringByField("nom"),
+                t.getIntegerByField("nbDevant"), t.getIntegerByField("nbDerriere"), t.getIntegerByField("total"));
+
+        collector.emit(t,new Values(rank.getId(), rank.getTop(), rank.getNom(), rank.getTotal(), rank.getRang()));
 
         return;
 
@@ -53,7 +53,7 @@ public class GiveRankBolt implements IRichBolt {
      * @see backtype.storm.topology.IComponent#declareOutputFields(backtype.storm.topology.OutputFieldsDeclarer)
      */
     public void declareOutputFields(OutputFieldsDeclarer arg0) {
-        arg0.declare(new Fields("json"));
+        arg0.declare(new Fields("id", "top", "nom", "total", "rang"));
     }
 
 

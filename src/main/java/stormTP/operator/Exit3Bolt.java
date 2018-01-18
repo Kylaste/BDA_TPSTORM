@@ -7,6 +7,7 @@ import org.apache.storm.topology.IRichBolt;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
+import stormTP.core.Runner;
 import stormTP.stream.StreamEmiter;
 
 import java.util.Map;
@@ -35,9 +36,15 @@ public class Exit3Bolt implements IRichBolt {
      */
     public void execute(Tuple t) {
 
-        String n = t.getValueByField("json").toString();
+        long id = t.getLongByField("id");
+        long top = t.getLongByField("top");
+        String nom = t.getStringByField("nom");
+        String rang = t.getStringByField("rang");
+        int total = t.getIntegerByField("total");
+        Runner r = new Runner(id, nom, 0,0, total,0, top);
+        r.setRang(rang);
 
-        this.semit.send(n);
+        this.semit.send(r.getJSON_V2());
         collector.ack(t);
 
         return;

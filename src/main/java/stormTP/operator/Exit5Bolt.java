@@ -9,6 +9,9 @@ import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import stormTP.stream.StreamEmiter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import java.util.Map;
 
 //import java.util.logging.Logger;
@@ -34,9 +37,14 @@ public class Exit5Bolt implements IRichBolt {
      */
     public void execute(Tuple t) {
 
-        String n = t.getValueByField("json").toString();
 
-        this.semit.send(n);
+        JsonObjectBuilder r = Json.createObjectBuilder();
+        r.add("id", t.getLongByField("id"));
+        r.add("tops", t.getLongByField("tops"));
+        r.add("nom", t.getStringByField("nom"));
+        r.add("vitesse", t.getDoubleByField("vitesse"));
+        JsonObject row = r.build();
+        this.semit.send(row.toString());
         collector.ack(t);
 
         return;

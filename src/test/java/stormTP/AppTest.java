@@ -37,7 +37,7 @@ public class AppTest
     public void testTortoiseFilter()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	assertNotNull(tm);
@@ -76,7 +76,7 @@ public class AppTest
     public void test1TortoisecomputeRank()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	
@@ -104,7 +104,7 @@ public class AppTest
     public void test2TortoisecomputeRank()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	
@@ -133,7 +133,7 @@ public class AppTest
     public void test1TortoisecomputePoints()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	
@@ -164,7 +164,7 @@ public class AppTest
     public void test2TortoisecomputePoints()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	
@@ -194,7 +194,7 @@ public class AppTest
     public void testTortoiseSpeed()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	
@@ -224,7 +224,7 @@ public class AppTest
     public void test1TortoiseRankEvolution()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
 
@@ -253,7 +253,7 @@ public class AppTest
     public void test2TortoiseRankEvolution()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	
@@ -282,7 +282,7 @@ public class AppTest
     public void test3TortoiseRankEvolution()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	
@@ -313,7 +313,7 @@ public class AppTest
     public void testTortoiseAverageRank()
     {
     	int dossard = 4;
-    	String nomsBinome = "Flores-Doliat";
+    	String nomsBinome = "Flores-Dorliat";
     	
     	TortoiseManager tm = new TortoiseManager(dossard,nomsBinome);
     	

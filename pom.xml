@@ -24,7 +24,7 @@
 	      </descriptorRefs>
 	      <archive>
 	        <manifest>
-	          <mainClass>stormTP.topology.TopologyT2</mainClass>
+	          <mainClass>stormTP.topology.TopologyT4</mainClass>
 	        </manifest>
 	      </archive>
 	    </configuration>
