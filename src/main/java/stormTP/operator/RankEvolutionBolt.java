@@ -9,10 +9,8 @@ import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 import org.apache.storm.windowing.TupleWindow;
+import stormTP.core.TortoiseManager;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import java.util.Map;
 
 
@@ -31,6 +29,7 @@ public class RankEvolutionBolt extends BaseStatefulWindowedBolt<KeyValueState<St
 
     @Override
     public void initState(KeyValueState<String, Integer> state) {
+
         this.state = state;
         sum = state.get("sum", 0);
         System.out.println("initState with state [" + state + "] current sum [" + sum + "]");
@@ -39,27 +38,34 @@ public class RankEvolutionBolt extends BaseStatefulWindowedBolt<KeyValueState<St
     @Override
     public void execute(TupleWindow inputWindow) {
 
+        sum = state.get("sum", 0);
+
+        long id = inputWindow.get().get(0).getLongByField("id");
+        String nom = inputWindow.get().get(0).getStringByField("nom");
+        long topInit= inputWindow.get().get(0).getLongByField("top");
+        long topFin = inputWindow.get().get(inputWindow.get().size()-1).getLongByField("top");
+        TortoiseManager manager = new TortoiseManager(4, "Flores-Dorliat");
+
         int cpt = 0;
+        int rangMoy;
+        String[] tabRang = new String[inputWindow.get().size()];
 
         for (Tuple t : inputWindow.get()) {
-            cpt++;
-
+            tabRang[cpt] = t.getStringByField("rang");
+            cpt ++;
         }
-        state.put("sum", cpt);
 
-        JsonObjectBuilder r = Json.createObjectBuilder();
-        r.add("test", "statelessWithWindow");
-        r.add("nbNewTuples", cpt);
-        r.add("totalNumberOfTuples", cpt);
-        JsonObject row = r.build();
+        rangMoy = manager.giveAverageRank(tabRang);
+        String evolution = manager.giveRankEvolution(rangMoy, sum);
 
-        collector.emit(inputWindow.get(),new Values(row.toString()));
+        state.put("sum", rangMoy);
+        collector.emit(inputWindow.get(),new Values(id, nom, topInit+"-"+topFin, evolution));
 
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("json"));
+        declarer.declare(new Fields("id", "nom", "tops", "evolution"));
     }
 }
 

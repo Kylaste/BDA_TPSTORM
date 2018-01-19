@@ -21,6 +21,7 @@
 /home/kylaste/Master/BigDataAnalytics/TP_Storm/JAVA/StormRacer/src/main/java/stormTP/operator/ExitInLogBolt.java
 /home/kylaste/Master/BigDataAnalytics/TP_Storm/JAVA/StormRacer/src/main/java/stormTP/operator/NothingBolt.java
 /home/kylaste/Master/BigDataAnalytics/TP_Storm/JAVA/StormRacer/src/main/java/stormTP/operator/HareSpout.java
+/home/kylaste/Master/BigDataAnalytics/TP_Storm/JAVA/StormRacer/src/main/java/stormTP/Util/Personne.java
 /home/kylaste/Master/BigDataAnalytics/TP_Storm/JAVA/StormRacer/src/main/java/stormTP/topology/TopologyE1.java
 /home/kylaste/Master/BigDataAnalytics/TP_Storm/JAVA/StormRacer/src/main/java/stormTP/operator/test/TestStatefulWindowBolt.java
 /home/kylaste/Master/BigDataAnalytics/TP_Storm/JAVA/StormRacer/src/main/java/stormTP/operator/ComputePodiumBolt.java

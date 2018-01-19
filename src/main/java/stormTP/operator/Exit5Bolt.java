@@ -40,7 +40,7 @@ public class Exit5Bolt implements IRichBolt {
 
         JsonObjectBuilder r = Json.createObjectBuilder();
         r.add("id", t.getLongByField("id"));
-        r.add("tops", t.getLongByField("tops"));
+        r.add("tops", t.getStringByField("tops"));
         r.add("nom", t.getStringByField("nom"));
         r.add("vitesse", t.getDoubleByField("vitesse"));
         JsonObject row = r.build();

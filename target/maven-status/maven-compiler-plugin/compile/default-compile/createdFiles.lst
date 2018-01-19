@@ -6,6 +6,7 @@ stormTP/operator/test/TestStatefulBolt.class
 stormTP/operator/test/TestStatefulWindowBolt.class
 stormTP/operator/GiveRankBolt.class
 stormTP/operator/ExitInLogBolt.class
+stormTP/Util/Personne.class
 stormTP/operator/Exit3Bolt.class
 stormTP/operator/RankEvolutionBolt.class
 stormTP/stream/StreamEmiter.class
@@ -17,6 +18,7 @@ stormTP/operator/Exit6Bolt.class
 stormTP/operator/test/TestStatelessWindowBolt.class
 stormTP/operator/ExitBolt.class
 stormTP/core/Stream.class
+stormTP/core/TortoiseManager$1.class
 stormTP/topology/TopologyT5.class
 stormTP/operator/SpeedBolt.class
 stormTP/operator/ComputeBonusBolt.class

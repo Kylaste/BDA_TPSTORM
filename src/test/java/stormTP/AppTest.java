@@ -357,7 +357,7 @@ public class AppTest
      */
     public void testPodium()
     {
-    	/*
+
     	String input = "{ \"rabbits\":[ ";
     	input += "{\"id\":0,\"top\":896,\"nom\":\"RogerRabbit\",\"position\":194,\"nbDevant\":4,\"nbDerriere\":5,\"total\":10},"; 
     	input += "{\"id\":1,\"top\":896,\"nom\":\"BugsBunny\",\"position\":189,\"nbDevant\":6,\"nbDerriere\":3,\"total\":10},";
@@ -412,7 +412,7 @@ public class AppTest
      	System.out.println();
      	
      	 assertEquals(result2 , output2 );
-     */
+
     
     }
     

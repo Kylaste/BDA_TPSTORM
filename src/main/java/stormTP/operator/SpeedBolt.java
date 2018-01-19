@@ -5,10 +5,11 @@ import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseWindowedBolt;
 import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
 import org.apache.storm.windowing.TupleWindow;
+import stormTP.core.Runner;
 import stormTP.core.TortoiseManager;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -24,35 +25,32 @@ public class SpeedBolt extends BaseWindowedBolt {
     @Override
     public void execute(TupleWindow inputWindow) {
 
-        int cpt = 0;
-        ArrayList<Integer> tableau = new ArrayList<Integer>();
         TortoiseManager manager = new TortoiseManager(4, "Flores-Dorliat");
+        String n1 = inputWindow.get().get(0).getValueByField("json").toString();
+        Runner tupleInit = manager.filter(n1);
+        String n2 = inputWindow.get().get(inputWindow.get().size()-1).getValueByField("json").toString();
+        Runner tupleFin = manager.filter(n2);
 
-        long id;
-        long top;
-     /*   for(Tuple t: inputWindow.get()) {
-            id = t.
+        long id = tupleInit.getId();
+        String nom = tupleInit.getNom();
 
-        for(int i: tableau){
-            if(tableau.contains(i+2)) {
-                String n = t.get(i).getValueByField("json").toString();
-                String n2 = t.get(i+2).getValueByField("json").toString();
-                Runner filterInit = manager.filter(n);
-                Runner filterFin = manager.filter(n2);
+        long topInit = tupleInit.getTop();
+        long topFin = tupleFin.getTop();
 
-                Double vitesse = manager.computeSpeed(filterInit.getTop(), filterFin.getTop(), filterInit.getPosition(), filterFin.getPosition());
+        int positionInit = tupleInit.getPosition();
+        int positionFin = tupleFin.getPosition();
 
-            }
-        }
+        Double vitesse = manager.computeSpeed(topInit, topFin, positionInit, positionFin);
 
-        //System.out.println( n  + " is treated!");
-        collector.emit(inputWindow.get(), new Values(id, top, nom, vitesse));*/
+        String tops = topInit + "-" + topFin ;
+
+        collector.emit(inputWindow.get(), new Values(id, tops, nom, vitesse));
             return;
 
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("id", "top", "nom", "vitesse"));
+        declarer.declare(new Fields("id", "tops", "nom", "vitesse"));
     }
 }

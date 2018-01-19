@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="11" failures="0" name="stormTP.AppTest" time="0.054" errors="0" skipped="0">
+<testsuite tests="11" failures="0" name="stormTP.AppTest" time="0.072" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2017.2.6"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -60,15 +60,15 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="stormTP.AppTest" name="test1TortoisecomputeRank" time="0.036"/>
+  <testcase classname="stormTP.AppTest" name="testTortoiseFilter" time="0.071"/>
+  <testcase classname="stormTP.AppTest" name="test1TortoiseRankEvolution" time="0"/>
+  <testcase classname="stormTP.AppTest" name="test2TortoiseRankEvolution" time="0"/>
+  <testcase classname="stormTP.AppTest" name="test3TortoiseRankEvolution" time="0"/>
   <testcase classname="stormTP.AppTest" name="test2TortoisecomputeRank" time="0"/>
-  <testcase classname="stormTP.AppTest" name="testPodium" time="0"/>
   <testcase classname="stormTP.AppTest" name="test1TortoisecomputePoints" time="0"/>
   <testcase classname="stormTP.AppTest" name="test2TortoisecomputePoints" time="0"/>
-  <testcase classname="stormTP.AppTest" name="testTortoiseSpeed" time="0.007"/>
-  <testcase classname="stormTP.AppTest" name="test1TortoiseRankEvolution" time="0.002"/>
-  <testcase classname="stormTP.AppTest" name="test2TortoiseRankEvolution" time="0"/>
-  <testcase classname="stormTP.AppTest" name="test3TortoiseRankEvolution" time="0.001"/>
-  <testcase classname="stormTP.AppTest" name="testTortoiseAverageRank" time="0.004"/>
-  <testcase classname="stormTP.AppTest" name="testTortoiseFilter" time="0.004"/>
+  <testcase classname="stormTP.AppTest" name="testTortoiseSpeed" time="0"/>
+  <testcase classname="stormTP.AppTest" name="test1TortoisecomputeRank" time="0"/>
+  <testcase classname="stormTP.AppTest" name="testTortoiseAverageRank" time="0"/>
+  <testcase classname="stormTP.AppTest" name="testPodium" time="0.001"/>
 </testsuite>

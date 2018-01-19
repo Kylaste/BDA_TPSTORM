@@ -1,8 +1,14 @@
 package stormTP.core;
 
+import stormTP.Util.Personne;
+
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  Classe regroupant les fonctionnalités nécessaires au traitement des flux des coureurs
@@ -32,7 +38,7 @@ public class TortoiseManager {
 		Runner tortoise = null;
 		String[] split = input.split("\\{", 0);
 
-		for (int i = 1; i < split.length - 1; i++) {
+		for (int i = 2; i < split.length - 1; i++) {
 			if (split[i].contains("\"id\":" + this.dossard + ",")) {
 				tortoise = new Runner(
 				this.dossard,
@@ -172,16 +178,85 @@ public class TortoiseManager {
 	 * @return objet JSON correspondant au podium
 	 */
 	public static String getPodium(String input){
-				
-		JsonObjectBuilder r =  Json.createObjectBuilder();
+		String[] split = input.split("\\{", 0);
 
-		//@TODO
-		
-		
-        
-		return r.build().toString();
-		
-						
+		JsonArrayBuilder marche1Builder = Json.createArrayBuilder();
+		JsonArrayBuilder marche2Builder = Json.createArrayBuilder();
+		JsonArrayBuilder marche3Builder = Json.createArrayBuilder();
+		ArrayList<String> marche1 = new ArrayList<>();
+		ArrayList<String> marche2 = new ArrayList<>();
+		ArrayList<String> marche3 = new ArrayList<>();
+
+		int top = 0;
+		String test ="";
+
+		HashMap<Integer, String> map = new HashMap<>();
+		ArrayList<Personne> lp = new ArrayList<>();
+
+		// on récupère le top, les places et les noms
+		for(int i = 2; i < split.length; i++){
+			if(i==2){
+				top = Integer.parseInt(split[i].substring(split[i].indexOf(":",split[i].indexOf("top"))+1,split[i].lastIndexOf("nom")-2));
+			}
+
+			int nbDevant = Integer.parseInt(split[i].substring(split[i].indexOf(":",split[i].indexOf("nbDevant"))+1,split[i].indexOf("nbDerriere")-2));
+			String nom = split[i].substring(split[i].indexOf(":",split[i].indexOf("nom"))+2,split[i].indexOf("position")-3);
+
+			lp.add(new Personne(nom, nbDevant));
+		}
+
+		//Ordonné par nbDevant
+		Collections.sort(lp, new Comparator<Personne>() {
+			@Override
+			public int compare(Personne t1, Personne t2) {
+				if( t1.getNbDevant() == t2.getNbDevant()){
+					return 0;
+				}
+				else if (t1.getNbDevant() < t2.getNbDevant()){
+					return -1;
+				}else{
+					return 1;
+				}
+
+			}
+		});
+
+		System.out.println(lp);
+
+		// test podium
+		for (int i = 0; i < lp.size() ; i++) {
+
+			if(lp.get(i).getNbDevant() == 0) {
+				marche1.add(lp.get(i).getNom());
+			}
+			else if(lp.get(i).getNbDevant() == marche1.size()) {
+				marche2.add(lp.get(i).getNom());
+			}
+			else if(lp.get(i).getNbDevant() == (marche1.size()+marche2.size())) {
+				marche3.add(lp.get(i).getNom());
+			}
+		}
+
+		Collections.sort(marche1);
+		Collections.sort(marche2);
+		Collections.sort(marche3);
+		for(int i = 0; i < marche1.size(); i++) {
+			marche1Builder.add(Json.createObjectBuilder().add("nom", marche1.get(i)));
+		}
+		for(int i = 0; i < marche2.size(); i++) {
+			marche2Builder.add(Json.createObjectBuilder().add("nom", marche2.get(i)));
+		}
+		for(int i = 0; i < marche3.size(); i++) {
+			marche3Builder.add(Json.createObjectBuilder().add("nom", marche3.get(i)));
+		}
+
+		JsonObjectBuilder podiumJson =  Json.createObjectBuilder();
+		podiumJson.add("top", top);
+		podiumJson.add("marcheP1", marche1Builder);
+		podiumJson.add("marcheP2", marche2Builder);
+		podiumJson.add("marcheP3", marche3Builder);
+
+		return podiumJson.build().toString();
 		
 	}
 
