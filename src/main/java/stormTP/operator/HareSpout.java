@@ -3,22 +3,17 @@
  */
 package stormTP.operator;
 
-import java.util.List;
-
-import java.util.Map;
-import java.util.Random;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.IRichSpout;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.tuple.Fields;
-import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 import org.apache.storm.utils.Utils;
 import stormTP.core.Stream;
+
+import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * @author Lumineau
@@ -32,6 +27,7 @@ public class HareSpout implements IRichSpout {
 	private long msgId = 0;
     private long initTimestamp = 0;
     private Stream stream = null;
+	private static Logger logger = Logger.getLogger("HareSpout");
    
 	
     public HareSpout(long initts){
@@ -62,8 +58,7 @@ public class HareSpout implements IRichSpout {
 		String msg = this.stream.getMessage( this.msgId );
 			    
 		collector.emit(new Values(msg), ++this.msgId);
-		
-		
+
 	    Utils.sleep(100);
 	}
 
@@ -76,7 +71,6 @@ public class HareSpout implements IRichSpout {
 	@Override
 	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
 		this.collector = collector;
-       
 	}
 
 
@@ -121,7 +115,7 @@ public class HareSpout implements IRichSpout {
 	@Override
 	public void fail(Object msgId) {
 		System.out.println("[PodiumFail] Failure (msg num:"+ msgId +") after " + (System.currentTimeMillis() - this.initTimestamp) + " ms" );
-	
+		logger.info("[PodiumFail] Failure (msg num:"+ msgId +") after " + (System.currentTimeMillis() - this.initTimestamp) + " ms" );
 	}
 
 

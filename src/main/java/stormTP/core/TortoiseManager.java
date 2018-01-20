@@ -188,7 +188,6 @@ public class TortoiseManager {
 		ArrayList<String> marche3 = new ArrayList<>();
 
 		int top = 0;
-		String test ="";
 
 		HashMap<Integer, String> map = new HashMap<>();
 		ArrayList<Personne> lp = new ArrayList<>();
@@ -221,9 +220,12 @@ public class TortoiseManager {
 			}
 		});
 
-		System.out.println(lp);
 
-		// test podium
+		// Test Podium
+		// On peut regarder lesquels sont arrivés en premier (0 personnes devant) et ensuite,
+		// dans le bon ordre, on peut regarder ceux qui sont arrivés après le/s premier/s.
+		// Pour le troisième, on regarde par rapport au nombre de lievres arrivés en 1 puis en 2.
+		// Le fait de les avoir ordonnés avant nous évite d'avoir à boucler 3 fois sur l'ensemble.
 		for (int i = 0; i < lp.size() ; i++) {
 
 			if(lp.get(i).getNbDevant() == 0) {
@@ -237,9 +239,12 @@ public class TortoiseManager {
 			}
 		}
 
+		// On tri dans l'ordre alphabétique
 		Collections.sort(marche1);
 		Collections.sort(marche2);
 		Collections.sort(marche3);
+
+		// On rempli les tableaux de Json
 		for(int i = 0; i < marche1.size(); i++) {
 			marche1Builder.add(Json.createObjectBuilder().add("nom", marche1.get(i)));
 		}
